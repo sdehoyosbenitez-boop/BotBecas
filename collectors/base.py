@@ -1,22 +1,20 @@
 from abc import ABC
+from typing import List
+
+from app.collectors.models import Scholarship
+
 
 class BaseCollector(ABC):
 
     name = ""
 
-    country = ""
-
-    source = ""
-
-    async def collect(self):
-
+    async def collect(self) -> List[Scholarship]:
         raise NotImplementedError
 
-    async def normalize(self, scholarship):
+    def validate(self, scholarship: Scholarship) -> bool:
 
-        return scholarship
-
-    def validate(self, scholarship):
+        if scholarship.title == "":
+            return False
 
         if scholarship.url == "":
             return False
